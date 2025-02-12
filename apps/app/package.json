@@ -78,7 +78,7 @@
     "duck-duck-scrape": "^2.2.6",
     "feed": "^4.2.2",
     "formik": "^2.4.6",
-    "framer-motion": "^11.15.0",
+    "framer-motion": "^12.4.2",
     "fuse.js": "^7.0.0",
     "highlight.js": "^11.11.1",
     "husky": "^9.1.7",
