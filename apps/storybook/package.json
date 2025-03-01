@@ -25,7 +25,7 @@
     "@storybook/addon-themes": "^8.4.7",
     "@storybook/blocks": "^8.4.7",
     "@storybook/nextjs": "^8.4.7",
-    "@storybook/react": "^8.4.7",
+    "@storybook/react": "^8.6.2",
     "@storybook/test": "^8.4.7",
     "@types/node": "^22",
     "@types/react": "^19",
