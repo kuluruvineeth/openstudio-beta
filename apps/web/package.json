@@ -41,7 +41,7 @@
     "react-intersection-observer": "^9.14.1",
     "react-remove-scroll": "^2.6.3",
     "react-wrap-balancer": "^1.1.1",
-    "require-in-the-middle": "^7.4.0",
+    "require-in-the-middle": "^7.5.1",
     "sharp": "^0.33.5",
     "shiki": "^1.24.4",
     "zod": "^3.24.1"
