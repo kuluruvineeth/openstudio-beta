@@ -1,6 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { microsoftLogin, signup, slackLogin } from '@repo/backend/auth/actions';
+import { googleLogin, signup } from '@repo/backend/auth/actions';
 import { Input } from '@repo/design-system/components/precomposed/input';
 import { Prose } from '@repo/design-system/components/prose';
 import { Button } from '@repo/design-system/components/ui/button';
@@ -12,7 +12,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@repo/design-system/components/ui/form';
+import { OrDivider } from '@repo/design-system/components/ui/or-divider';
 import { handleError } from '@repo/design-system/lib/handle-error';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -41,19 +43,9 @@ export const SignupForm = () => {
     }
   };
 
-  const handleMicrosoftLogin = async () => {
+  const handleGoogleLogin = async () => {
     try {
-      const url = await microsoftLogin();
-
-      window.location.href = url;
-    } catch (error) {
-      handleError(error);
-    }
-  };
-
-  const handleSlackLogin = async () => {
-    try {
-      const url = await slackLogin();
+      const url = await googleLogin();
 
       window.location.href = url;
     } catch (error) {
@@ -70,29 +62,24 @@ export const SignupForm = () => {
         </p>
       </Prose>
       <div className="grid gap-2">
-        {/* <div className="grid grid-cols-2 gap-4">
-          <Button variant="outlined" onClick={handleMicrosoftLogin}>
+        <div className="grid grid-cols-1 gap-4">
+          <Button
+            variant="outlined"
+            onClick={handleGoogleLogin}
+            // disabled
+            // className="disabled:cursor-not-allowed disabled:opacity-50"
+          >
             <Image
-              src="/icons/microsoft.svg"
+              src="/icons/google.svg"
               alt=""
               width={16}
               height={16}
-              className="w-4 h-4"
+              className="h-4 w-4"
             />
-            Microsoft
-          </Button>
-          <Button variant="outlined" onClick={handleSlackLogin}>
-            <Image
-              src="/icons/slack.svg"
-              alt=""
-              width={16}
-              height={16}
-              className="w-4 h-4"
-            />
-            Slack
+            Google
           </Button>
         </div>
-        <OrDivider /> */}
+        <OrDivider />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">

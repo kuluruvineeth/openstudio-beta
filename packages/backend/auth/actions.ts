@@ -86,7 +86,8 @@ export const googleLogin = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: redirectUrl,
+      //TODO: Later move to env variable
+      redirectTo: 'https://app.openstudio.tech/api/auth/callback',
     },
   });
 
