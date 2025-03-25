@@ -1,6 +1,7 @@
 'use client';
 
 import { OnboardingModal } from '@/components/onboarding-modal';
+import { Skeleton } from '@repo/design-system/components/ui/skeleton';
 import {
   Tabs,
   TabsContent,
@@ -10,6 +11,8 @@ import {
 } from '@repo/design-system/components/ui/tabs';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { Process } from '../components/process';
+import { Rules } from '../components/rules';
 import { RulesPrompt } from '../components/rules-prompt';
 
 export const AutomationTabsSection = () => {
@@ -23,7 +26,53 @@ export const AutomationTabsSection = () => {
 };
 
 const AutomationTabsSectionSkeleton = () => {
-  return <div>Loading...</div>;
+  return (
+    <div className="w-full">
+      {/* Tabs header skeleton */}
+      <div className="mb-6 flex items-center justify-between border-border border-b pb-2">
+        <div className="flex space-x-2 overflow-x-auto">
+          {/* biome-ignore lint/style/useConsistentBuiltinInstantiation: <explanation> */}
+          {[...Array(5)].map((_, i) => (
+            <Skeleton key={i} className="h-9 w-20" />
+          ))}
+        </div>
+        <Skeleton className="h-9 w-9" />
+      </div>
+
+      {/* Card skeleton */}
+      <div className="rounded-lg border border-border">
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {/* Main content area */}
+          <div className="col-span-2 p-6">
+            <div className="mb-4 space-y-2">
+              <Skeleton className="h-6 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
+            {/* Textarea skeleton */}
+            <Skeleton className="mb-4 h-[300px] w-full" />
+            {/* Buttons skeleton */}
+            <div className="flex flex-wrap gap-2">
+              {/* biome-ignore lint/style/useConsistentBuiltinInstantiation: <explanation> */}
+              {[...Array(3)].map((_, i) => (
+                <Skeleton key={i} className="h-9 w-32" />
+              ))}
+            </div>
+          </div>
+
+          {/* Examples sidebar skeleton */}
+          <div className="p-6">
+            <Skeleton className="mb-4 h-6 w-24" />
+            <div className="space-y-2">
+              {/* biome-ignore lint/style/useConsistentBuiltinInstantiation: <explanation> */}
+              {[...Array(6)].map((_, i) => (
+                <Skeleton key={i} className="h-12 w-full" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 const AutomationTabsSectionSuspense = () => {
@@ -57,10 +106,10 @@ const AutomationTabsSectionSuspense = () => {
         <RulesPrompt />
       </TabsContent>
       <TabsContent value="rules" className="px-2 sm:px-6">
-        Rules
+        <Rules />
       </TabsContent>
       <TabsContent value="test" className="px-2 sm:px-6">
-        Test
+        <Process />
       </TabsContent>
       <TabsContent value="history" className="px-2 sm:px-6">
         History
