@@ -10,7 +10,9 @@ import { Button } from '@repo/design-system/components/ui/button';
 import { Flex } from '@repo/design-system/components/ui/flex';
 import { Type } from '@repo/design-system/components/ui/text';
 import { cn } from '@repo/design-system/lib/utils';
+import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
+import { StudioUploadModal } from '../studio-upload-modal';
 
 interface StudioNavbarProps {
   title?: string;
@@ -26,6 +28,8 @@ export const StudioNavbar = ({
   borderBottom = true,
 }: StudioNavbarProps) => {
   const { isSidebarOpen, setIsSidebarOpen } = useTubeContext();
+  const pathname = usePathname();
+  const studioPage = pathname === '/tube/studio';
   return (
     <Flex
       className={cn(
@@ -89,7 +93,15 @@ export const StudioNavbar = ({
           {title && <Type weight="medium">{title}</Type>}
           {/* {children} */}
         </Flex>
-        {children}
+        {!studioPage && children}
+        {studioPage && (
+          <>
+            <Flex gap="xs" items="center">
+              <StudioUploadModal />
+            </Flex>
+            {children}
+          </>
+        )}
       </Flex>
     </Flex>
   );
