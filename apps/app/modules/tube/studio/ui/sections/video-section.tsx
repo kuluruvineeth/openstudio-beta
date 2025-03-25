@@ -16,9 +16,10 @@ import {
 import { format } from 'date-fns';
 import { Globe2Icon, LockIcon } from 'lucide-react';
 import Link from 'next/link';
-import { Suspense } from 'react';
+import { useRouter } from 'next/navigation';
+import { Suspense, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-
+import { VideoActionButtons } from '../components/video-action-buttons';
 export const VideoSection = () => {
   return (
     <Suspense fallback={<VideosSectionSkeleton />}>
@@ -73,6 +74,7 @@ const VideosSectionSkeleton = () => {
 };
 
 const VideoSectionSuspense = () => {
+  const router = useRouter();
   const [data, query] = trpc.studio.getMany.useSuspenseInfiniteQuery(
     {
       limit: DEFAULT_LIMIT,
@@ -81,6 +83,82 @@ const VideoSectionSuspense = () => {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     }
   );
+
+  const [loadingState, setLoadingState] = useState<
+    Record<
+      string,
+      {
+        trim?: boolean;
+        download?: boolean;
+        share?: boolean;
+        delete?: boolean;
+      }
+    >
+  >({});
+
+  const handleTrim = async (videoId: string) => {
+    setLoadingState((prev) => ({
+      ...prev,
+      [videoId]: { ...prev[videoId], trim: true },
+    }));
+    try {
+      router.push(`/tube/studio/${videoId}/edit`);
+    } finally {
+      setLoadingState((prev) => ({
+        ...prev,
+        [videoId]: { ...prev[videoId], trim: false },
+      }));
+    }
+  };
+
+  const handleDownload = async (videoId: string) => {
+    setLoadingState((prev) => ({
+      ...prev,
+      [videoId]: { ...prev[videoId], download: true },
+    }));
+    try {
+      // Implement download logic here
+      console.log('Downloading video:', videoId);
+    } finally {
+      setLoadingState((prev) => ({
+        ...prev,
+        [videoId]: { ...prev[videoId], download: false },
+      }));
+    }
+  };
+
+  const handleShare = async (videoId: string) => {
+    setLoadingState((prev) => ({
+      ...prev,
+      [videoId]: { ...prev[videoId], share: true },
+    }));
+    try {
+      // Implement share logic here
+      console.log('Sharing video:', videoId);
+    } finally {
+      setLoadingState((prev) => ({
+        ...prev,
+        [videoId]: { ...prev[videoId], share: false },
+      }));
+    }
+  };
+
+  const handleDelete = async (videoId: string) => {
+    setLoadingState((prev) => ({
+      ...prev,
+      [videoId]: { ...prev[videoId], delete: true },
+    }));
+    try {
+      // Implement delete logic here
+      console.log('Deleting video:', videoId);
+    } finally {
+      setLoadingState((prev) => ({
+        ...prev,
+        [videoId]: { ...prev[videoId], delete: false },
+      }));
+    }
+  };
+
   return (
     <div>
       <div className="border-y">
@@ -93,6 +171,8 @@ const VideoSectionSuspense = () => {
               <TableHead>Visibility</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead className="w-[100px]" />{' '}
+              {/* Space for action buttons */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -104,7 +184,7 @@ const VideoSectionSuspense = () => {
                   key={video.id}
                   legacyBehavior
                 >
-                  <TableRow>
+                  <TableRow className="group relative transition-colors hover:bg-muted/50">
                     <TableCell className="pl-6">
                       <div className="flex items-center gap-4">
                         <div className="relative aspect-video w-36 shrink-0">
@@ -142,6 +222,37 @@ const VideoSectionSuspense = () => {
                     </TableCell>
                     <TableCell className="truncate text-sm">
                       {format(new Date(video.createdAt), 'd MMM yyyy')}
+                    </TableCell>
+                    <TableCell>
+                      <div className="-translate-y-1/2 absolute top-1/2 right-4 z-20 hidden transition-opacity duration-200 group-hover:block">
+                        <VideoActionButtons
+                          isTrimming={loadingState[video.id]?.trim}
+                          isDownloading={loadingState[video.id]?.download}
+                          isSharing={loadingState[video.id]?.share}
+                          isDeleting={loadingState[video.id]?.delete}
+                          isDisabledTrim={true}
+                          isDisabledDownload={true}
+                          isDisabledShare={true}
+                          isDisabledDelete={true}
+                          onTrim={(e) => {
+                            e?.preventDefault?.();
+                            handleTrim(video.id);
+                          }}
+                          onDownload={(e) => {
+                            e?.preventDefault?.();
+                            handleDownload(video.id);
+                          }}
+                          onShare={(e) => {
+                            e?.preventDefault?.();
+                            handleShare(video.id);
+                          }}
+                          onDelete={(e) => {
+                            e?.preventDefault?.();
+                            handleDelete(video.id);
+                          }}
+                          shadow
+                        />
+                      </div>
                     </TableCell>
                   </TableRow>
                 </Link>
