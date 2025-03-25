@@ -45,9 +45,9 @@ function getModel({
   aiModel,
   aiApiKey,
 }: {
-  aiProvider: string;
-  aiModel: string;
-  aiApiKey: string;
+  aiProvider: string | null;
+  aiModel: string | null;
+  aiApiKey: string | null;
 }) {
   const keys = envKeys();
   const provider = aiProvider || getDefaultProvider();
@@ -75,6 +75,7 @@ function getModel({
   }
 
   if (provider === Provider.GOOGLE) {
+    // biome-ignore lint/style/useBlockStatements: <explanation>
     if (!aiApiKey) throw new Error('Google API key is required');
     const model = aiModel || Model.GEMINI_1_5_PRO;
     return {
@@ -87,6 +88,7 @@ function getModel({
   }
 
   if (provider === Provider.GROQ) {
+    // biome-ignore lint/style/useBlockStatements: <explanation>
     if (!aiApiKey) throw new Error('Groq API key is required');
     const model = aiModel || Model.GROQ_LLAMA_3_3_70B;
     return {
@@ -99,8 +101,10 @@ function getModel({
   }
 
   if (provider === Provider.OPENROUTER) {
+    // biome-ignore lint/style/useBlockStatements: <explanation>
     if (!aiApiKey && !keys.OPENROUTER_API_KEY)
       throw new Error('OpenRouter API key is required');
+    // biome-ignore lint/style/useBlockStatements: <explanation>
     if (!aiModel) throw new Error('OpenRouter model is required');
 
     const openRouter = createOpenRouter({
@@ -161,6 +165,7 @@ export async function chatCompletion({
     }
     return result;
   } catch (error) {
+    // biome-ignore lint/suspicious/noConsole: <explanation>
     console.error(error);
     throw error;
   }
@@ -231,11 +236,13 @@ async function chatCompletionObjectInternal<T>({
 
     return result;
   } catch (error) {
+    // biome-ignore lint/suspicious/noConsole: <explanation>
     console.error(error);
     throw error;
   }
 }
 
+// biome-ignore lint/suspicious/useAwait: <explanation>
 export async function chatCompletionStream({
   userAi,
   prompt,
@@ -286,9 +293,9 @@ export async function chatCompletionStream({
 
 type ChatCompletionToolsArgs = {
   userAi: {
-    aiProvider: string;
-    aiModel: string;
-    aiApiKey: string;
+    aiProvider: string | null;
+    aiModel: string | null;
+    aiApiKey: string | null;
   };
   tools: Record<string, Tool>;
   maxSteps?: number;
@@ -351,6 +358,7 @@ async function chatCompletionToolsInternal({
 
     return result;
   } catch (error) {
+    // biome-ignore lint/suspicious/noConsole: <explanation>
     console.error(error);
     throw error;
   }
