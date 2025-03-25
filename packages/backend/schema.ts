@@ -50,6 +50,7 @@ export const Profile = pgTable('profile', {
   aiApiKey: text('ai_api_key'),
 });
 
+// Enums
 export const actionType = pgEnum('action_type', [
   'REPLY',
   'DELETE',
@@ -57,7 +58,6 @@ export const actionType = pgEnum('action_type', [
   'REJECT',
   'REVIEW',
   'MARK_AS_SPAM',
-  //below are not supported by youtube api
   'NOTIFY',
   'CALL_WEBHOOK',
   'CATEGORIZE',
@@ -65,6 +65,11 @@ export const actionType = pgEnum('action_type', [
 ]);
 
 export const logicalOperatorEnum = pgEnum('logical_operator', ['AND', 'OR']);
+
+export const categoryFilterTypeEnum = pgEnum('category_filter_type', [
+  'INCLUDE',
+  'EXCLUDE',
+]);
 
 export const executedRuleStatusEnum = pgEnum('executed_rule_status', [
   'APPLIED',
@@ -75,6 +80,13 @@ export const executedRuleStatusEnum = pgEnum('executed_rule_status', [
   'ERROR',
 ]);
 
+export const groupItemTypeEnum = pgEnum('group_item_type', [
+  'COMMENTER',
+  'COMMENT_TEXT',
+  'VIDEO_ID',
+]);
+
+// Rule table
 export const rule = pgTable(
   'rule',
   {
@@ -83,44 +95,75 @@ export const rule = pgTable(
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
     name: text('name').notNull(),
     enabled: boolean('enabled').default(true).notNull(),
-    automate: boolean('automate').default(false).notNull(),
+    automate: boolean('automate').default(false).notNull(), // User must approve if false
+    runOnThreads: boolean('run_on_threads').default(false).notNull(), // Runs on comment threads if true
     userId: uuid('user_id')
       .notNull()
       .references(() => Users.id, { onDelete: 'cascade' }),
 
+    // Reply tracking fields for YouTube comments
+    trackReplies: boolean('track_replies'),
+    draftReplies: boolean('draft_replies'),
+    draftRepliesInstructions: text('draft_replies_instructions'),
+
+    // Conditions
     conditionalOperator: logicalOperatorEnum('conditional_operator')
       .default('AND')
       .notNull(),
+    instructions: text('instructions'), // AI conditions
 
-    instructions: text('instructions'),
+    // Group condition
+    groupId: uuid('group_id')
+      .unique()
+      .references(() => group.id, { onDelete: 'cascade' }),
+
+    // Static conditions for YouTube comments
+    from: text('from'), // Commenter ID or channel ID
+    videoId: text('video_id'), // Specific YouTube video ID
+    commentText: text('comment_text'), // Comment body filter
   },
   (t) => [uniqueIndex('rule_user_id_name_idx').on(t.userId, t.name)]
 );
 
+// Action table
+export const action = pgTable('action', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  type: actionType('type').notNull(),
+  ruleId: uuid('rule_id')
+    .notNull()
+    .references(() => rule.id, { onDelete: 'cascade' }),
+
+  // Optional static fields for YouTube actions
+  label: text('label'), // e.g., category label
+  content: text('content'), // Reply content
+  url: text('url'), // Webhook URL if applicable
+});
+
+// ExecutedRule table
 export const executedRule = pgTable(
   'executed_rule',
   {
     id: uuid('id').primaryKey().defaultRandom(),
-    ruleId: uuid('rule_id')
-      .notNull()
-      .references(() => rule.id),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
-    commentId: text('comment_id').notNull(),
-    videoId: text('video_id').notNull(),
+    threadId: text('thread_id'), // YouTube comment thread ID
+    commentId: text('comment_id').notNull(), // YouTube comment ID
     status: executedRuleStatusEnum('status').notNull(),
     automated: boolean('automated').notNull(),
     reason: text('reason'),
 
+    ruleId: uuid('rule_id').references(() => rule.id),
     userId: uuid('user_id')
       .notNull()
       .references(() => Users.id, { onDelete: 'cascade' }),
   },
   (t) => [
-    uniqueIndex('executed_rule_user_id_comment_id_video_id_idx').on(
+    uniqueIndex('executed_rule_user_id_thread_id_comment_id_idx').on(
       t.userId,
-      t.commentId,
-      t.videoId
+      t.threadId,
+      t.commentId
     ),
     index('executed_rule_user_id_status_created_at_idx').on(
       t.userId,
@@ -130,24 +173,167 @@ export const executedRule = pgTable(
   ]
 );
 
-export const action = pgTable('action', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
-  type: actionType('type').notNull(),
-  ruleId: uuid('rule_id')
-    .notNull()
-    .references(() => rule.id),
-});
-
+// ExecutedAction table
 export const executedAction = pgTable('executed_action', {
   id: uuid('id').primaryKey().defaultRandom(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  type: actionType('type').notNull(),
   executedRuleId: uuid('executed_rule_id')
     .notNull()
-    .references(() => executedRule.id),
+    .references(() => executedRule.id, { onDelete: 'cascade' }),
+
+  // Optional fields for executed actions
+  label: text('label'),
+  content: text('content'),
+  url: text('url'),
 });
+
+// Group table for YouTube comment categorization
+export const group = pgTable(
+  'group',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+    name: text('name').notNull(),
+    prompt: text('prompt'), // Optional, might be deprecated
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => Users.id, { onDelete: 'cascade' }),
+  },
+  (t) => [uniqueIndex('group_user_id_name_idx').on(t.userId, t.name)]
+);
+
+// GroupItem table for specific YouTube comment conditions
+export const groupItem = pgTable(
+  'group_item',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+    groupId: uuid('group_id').references(() => group.id, {
+      onDelete: 'cascade',
+    }),
+    type: groupItemTypeEnum('type').notNull(),
+    value: text('value').notNull(), // e.g., commenter ID, comment text pattern, video ID
+  },
+  (t) => [
+    uniqueIndex('group_item_group_id_type_value_idx').on(
+      t.groupId,
+      t.type,
+      t.value
+    ),
+  ]
+);
+
+// Enum for ThreadTrackerType as specified
+export const threadTrackerTypeEnum = pgEnum('thread_tracker_type', [
+  'AWAITING', // We're waiting for their reply
+  'NEEDS_REPLY', // We need to reply to this
+  'NEEDS_ACTION', // We need to do something else
+]);
+
+// ThreadTracker table
+export const threadTracker = pgTable(
+  'thread_tracker',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+    sentAt: timestamp('sent_at'), // When the action (e.g., reply) was sent
+    threadId: text('thread_id'), // YouTube comment thread ID
+    commentId: text('comment_id').notNull(), // YouTube comment ID
+    resolved: boolean('resolved').default(false).notNull(),
+    type: threadTrackerTypeEnum('type').notNull(),
+
+    ruleId: uuid('rule_id').references(() => rule.id, { onDelete: 'cascade' }),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => Users.id, { onDelete: 'cascade' }),
+  },
+  (t) => [
+    uniqueIndex('thread_tracker_user_id_thread_id_comment_id_idx').on(
+      t.userId,
+      t.threadId,
+      t.commentId
+    ),
+    index('thread_tracker_user_id_resolved_idx').on(t.userId, t.resolved),
+    index('thread_tracker_user_id_resolved_sent_at_type_idx').on(
+      t.userId,
+      t.resolved,
+      t.sentAt,
+      t.type
+    ),
+    index('thread_tracker_user_id_type_resolved_sent_at_idx').on(
+      t.userId,
+      t.type,
+      t.resolved,
+      t.sentAt
+    ),
+  ]
+);
+
+// Relations
+
+export const threadTrackerRelations = relations(threadTracker, ({ one }) => ({
+  rule: one(rule, {
+    fields: [threadTracker.ruleId],
+    references: [rule.id],
+  }),
+  user: one(Users, {
+    fields: [threadTracker.userId],
+    references: [Users.id],
+  }),
+}));
+
+export const actionRelations = relations(action, ({ one }) => ({
+  rule: one(rule, {
+    fields: [action.ruleId],
+    references: [rule.id],
+  }),
+}));
+
+export const executedRuleRelations = relations(
+  executedRule,
+  ({ one, many }) => ({
+    rule: one(rule, {
+      fields: [executedRule.ruleId],
+      references: [rule.id],
+    }),
+    user: one(Users, {
+      fields: [executedRule.userId],
+      references: [Users.id],
+    }),
+    actionItems: many(executedAction),
+  })
+);
+
+export const executedActionRelations = relations(executedAction, ({ one }) => ({
+  executedRule: one(executedRule, {
+    fields: [executedAction.executedRuleId],
+    references: [executedRule.id],
+  }),
+}));
+
+export const groupRelations = relations(group, ({ one, many }) => ({
+  user: one(Users, {
+    fields: [group.userId],
+    references: [Users.id],
+  }),
+  items: many(groupItem),
+  rule: one(rule, {
+    fields: [group.id],
+    references: [rule.groupId],
+  }),
+}));
+
+export const groupItemRelations = relations(groupItem, ({ one }) => ({
+  group: one(group, {
+    fields: [groupItem.groupId],
+    references: [group.id],
+  }),
+}));
 
 export const youtubeCommentDataSyncFrequencyEnum = pgEnum(
   'youtube_comment_data_sync_frequency',
@@ -881,7 +1067,7 @@ export const videoRelations = relations(videos, ({ one, many }) => ({
 // user can have many video reactions
 // user can have many subscriptions
 // user can have many subscribers
-export const userRelations = relations(Users, ({ many }) => ({
+export const userRelations = relations(Users, ({ many, one }) => ({
   videos: many(videos),
   videoViews: many(videoViews),
   videoReactions: many(videoReactions),
@@ -893,6 +1079,12 @@ export const userRelations = relations(Users, ({ many }) => ({
   }),
   comments: many(comments),
   commentReactions: many(commentReactions),
+  profile: one(Profile, {
+    fields: [Users.id],
+    references: [Profile.id],
+  }),
+  commentCategories: many(commentCategoryTable),
+  commenterCategories: many(commenterCategoryTable),
 }));
 
 //NOTE (Optional): Relations work only on application level, does not affect database schema or relations
@@ -928,6 +1120,71 @@ export const subscriptions = pgTable(
       name: 'subscriptions_pk',
       columns: [t.viewerId, t.creatorId],
     }),
+  ]
+);
+
+export const commenterCategoryTable = pgTable(
+  'commenter_category',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+    name: text('name').notNull(),
+    description: text('description'),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => Users.id, { onDelete: 'cascade' }),
+  },
+  (t) => [
+    uniqueIndex('commenter_category_name_user_id_idx').on(t.name, t.userId),
+  ]
+);
+
+export const commentCategoryTable = pgTable(
+  'comment_category',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+    name: text('name').notNull(),
+    description: text('description'),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => Users.id, { onDelete: 'cascade' }),
+  },
+  (t) => [uniqueIndex('comment_category_name_user_id_idx').on(t.name, t.userId)]
+);
+
+export const ruleCommentCategoryTable = pgTable(
+  'rule_comment_category',
+  {
+    ruleId: uuid('rule_id')
+      .notNull()
+      .references(() => rule.id, { onDelete: 'cascade' }),
+    commentCategoryId: uuid('comment_category_id')
+      .notNull()
+      .references(() => commentCategoryTable.id, { onDelete: 'cascade' }),
+  },
+  (t) => [
+    uniqueIndex('rule_comment_category_idx').on(t.ruleId, t.commentCategoryId),
+  ]
+);
+
+export const ruleCommenterCategoryTable = pgTable(
+  'rule_commenter_category',
+  {
+    ruleId: uuid('rule_id')
+      .notNull()
+      .references(() => rule.id, { onDelete: 'cascade' }),
+    commenterCategoryId: uuid('commenter_category_id')
+      .notNull()
+      .references(() => commenterCategoryTable.id, { onDelete: 'cascade' }),
+  },
+  (t) => [
+    uniqueIndex('rule_commenter_category_idx').on(
+      t.ruleId,
+      t.commenterCategoryId
+    ),
   ]
 );
 
@@ -1036,6 +1293,73 @@ export const commentReactionRelations = relations(
     }),
   })
 );
+
+// Relations for commenterCategoryTable
+export const commenterCategoryRelations = relations(
+  commenterCategoryTable,
+  ({ one, many }) => ({
+    user: one(Users, {
+      fields: [commenterCategoryTable.userId],
+      references: [Users.id],
+    }),
+    rules: many(ruleCommenterCategoryTable), // Links to the join table
+  })
+);
+
+// Relations for commentCategoryTable
+export const commentCategoryRelations = relations(
+  commentCategoryTable,
+  ({ one, many }) => ({
+    user: one(Users, {
+      fields: [commentCategoryTable.userId],
+      references: [Users.id],
+    }),
+    rules: many(ruleCommentCategoryTable), // Links to the join table
+  })
+);
+
+// Relations for ruleCommentCategoryTable
+export const ruleCommentCategoryRelations = relations(
+  ruleCommentCategoryTable,
+  ({ one }) => ({
+    rule: one(rule, {
+      fields: [ruleCommentCategoryTable.ruleId],
+      references: [rule.id],
+    }),
+    commentCategory: one(commentCategoryTable, {
+      fields: [ruleCommentCategoryTable.commentCategoryId],
+      references: [commentCategoryTable.id],
+    }),
+  })
+);
+
+// Relations for ruleCommenterCategoryTable
+export const ruleCommenterCategoryRelations = relations(
+  ruleCommenterCategoryTable,
+  ({ one }) => ({
+    rule: one(rule, {
+      fields: [ruleCommenterCategoryTable.ruleId],
+      references: [rule.id],
+    }),
+    commenterCategory: one(commenterCategoryTable, {
+      fields: [ruleCommenterCategoryTable.commenterCategoryId],
+      references: [commenterCategoryTable.id],
+    }),
+  })
+);
+
+export const ruleRelations = relations(rule, ({ many, one }) => ({
+  actions: many(action),
+  executedRules: many(executedRule),
+  threadTrackers: many(threadTracker),
+  group: one(group, {
+    fields: [rule.groupId],
+    references: [group.id],
+  }),
+  categoryFilters: many(commentCategoryTable),
+  commentCategories: many(ruleCommentCategoryTable),
+  commenterCategories: many(ruleCommenterCategoryTable),
+}));
 
 export const schema = {
   organization,
