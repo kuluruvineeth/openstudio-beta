@@ -1,7 +1,7 @@
 'use client';
 
 import { personas } from '@/modules/tube/automation/examples';
-import { ButtonList } from '@/modules/tube/automation/ui/components/button-list';
+import { ButtonList } from '@repo/design-system/components/button-list';
 import {
   Dialog,
   DialogContent,
