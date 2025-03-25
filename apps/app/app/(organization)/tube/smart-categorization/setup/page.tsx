@@ -3,6 +3,8 @@ import { ClientOnly } from '@/components/client-only';
 import { SmartCategoriesOnboarding } from '@/modules/tube/smart-categories/ui/components/smart-categories-onboarding';
 import { currentUser } from '@repo/backend/auth/utils';
 
+export const dynamic = 'force-dynamic';
+
 export default async function SmartCategorizationSetupPage() {
   const user = await currentUser();
   if (!user) {
