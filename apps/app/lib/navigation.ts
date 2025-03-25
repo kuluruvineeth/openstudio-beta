@@ -8,6 +8,7 @@ import {
   SparklesIcon,
   UserIcon,
   VideoIcon,
+  WandSparkles,
 } from 'lucide-react';
 
 export type SidebarPage = {
@@ -79,4 +80,11 @@ export const youtubeComments: SidebarPage = {
   label: 'Youtube Comments',
   href: '/tube/comments',
   active: (pathname) => pathname === '/tube/comments',
+};
+
+export const smartCategorization: SidebarPage = {
+  icon: WandSparkles,
+  label: 'Smart Categorization',
+  href: '/tube/smart-categorization',
+  active: (pathname) => pathname === '/tube/smart-categorization',
 };

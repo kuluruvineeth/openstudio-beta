@@ -20,6 +20,23 @@ const categoryColors: Record<string, Color> = {
   OTHER: 'gray',
 };
 
+//TODO: FOR LATER
+const commenterCategoryColors: Record<string, Color> = {
+  TOP_FAN: 'green',
+  CASUAL_VIEWER: 'gray',
+  COLLABORATOR: 'teal',
+  CRITIC: 'purple',
+  INFLUENCER: 'blue',
+  SPAMMER: 'orange',
+  TROLL: 'darkred',
+  SUPPORTER: 'lightblue',
+  EDUCATOR: 'navy',
+  ENTERTAINER: 'orange',
+  QUESTIONER: 'yellow',
+  STORYTELLER: 'violet',
+  UNKNOWN: 'gray',
+};
+
 export const CategoryBadge = ({ category }: { category: string }) => {
   return (
     <Badge

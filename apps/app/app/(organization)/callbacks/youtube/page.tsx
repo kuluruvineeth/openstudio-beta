@@ -76,6 +76,7 @@ const YoutubeCallbackPage = async (props: YoutubeCallbackPageProperties) => {
             refreshToken: youtubeAuthData.tokens.refresh_token,
             tokenType: youtubeAuthData.tokens.token_type,
             scope: youtubeAuthData.tokens.scope,
+            // biome-ignore lint/style/noNonNullAssertion: <explanation>
             expiryDate: new Date(youtubeAuthData.tokens.expiry_date!),
           })
         )
@@ -119,6 +120,7 @@ const YoutubeCallbackPage = async (props: YoutubeCallbackPageProperties) => {
     console.error('YouTube integration error:', error);
     throw error;
   }
+  // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
   return redirect(`/settings/integrations`);
 };
 
