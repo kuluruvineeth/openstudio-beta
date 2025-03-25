@@ -5,6 +5,7 @@ import { examplePrompts } from '@/modules/tube/automation/examples';
 import { personas } from '@/modules/tube/automation/examples';
 import { trpc } from '@/trpc/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from '@repo/design-system/components/input';
 import { AlertBasic } from '@repo/design-system/components/ui/alert';
 import { Button } from '@repo/design-system/components/ui/button';
 import {
@@ -23,7 +24,6 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useLocalStorage } from 'usehooks-ts';
 import { z } from 'zod';
-import { Input } from './input';
 import { PersonaDialog } from './persona-dialog';
 
 export const saveRulesPromptBody = z.object({ rulesPrompt: z.string().trim() });
@@ -118,6 +118,7 @@ function RulesPromptForm({
   const router = useRouter();
 
   useEffect(() => {
+    // biome-ignore lint/style/useBlockStatements: <explanation>
     if (!personaPrompt) return;
 
     const currentPrompt = getValues('rulesPrompt') || '';
@@ -142,7 +143,7 @@ function RulesPromptForm({
 
       const saveRulesPromise = async (data: SaveRulesPromptBody) => {
         setIsSubmitting(true);
-        update.mutate({ rulesPrompt: data.rulesPrompt });
+        await update.mutate({ rulesPrompt: data.rulesPrompt });
 
         if (viewedProcessingPromptFileDialog) {
           router.push('/automation?tab=test');
@@ -220,7 +221,13 @@ function RulesPromptForm({
                     </Button>
                   </Tooltip>
 
-                  <Button variant="outline" onClick={onOpenPersonaDialog}>
+                  <Button
+                    variant="outline"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onOpenPersonaDialog();
+                    }}
+                  >
                     <UserPenIcon className="mr-2 size-4" />
                     Choose Persona
                   </Button>
