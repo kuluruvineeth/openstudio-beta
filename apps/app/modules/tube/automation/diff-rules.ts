@@ -22,9 +22,9 @@ export async function aiDiffRules({
 }: {
   user: {
     email: string;
-    aiProvider: string;
-    aiModel: string;
-    aiApiKey: string;
+    aiProvider: string | null;
+    aiModel: string | null;
+    aiApiKey: string | null;
   };
   oldPromptFile: string;
   newPromptFile: string;

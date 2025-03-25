@@ -1,28 +1,36 @@
-// NOTE: some users save the example rules when trying out the platform, and start auto responding
-// to comments without realising it. This is a simple check to avoid that.
-// This needs changing when the examples change. But it works for now.
-export function hasExampleParams(rule: {
-  condition: {
-    static?: {
-      commentText?: string | null;
-      channelName?: string | null;
-    } | null;
-  };
-  actions: { fields?: { content?: string | null } }[];
-}) {
-  return (
-    rule.condition.static?.channelName?.includes('ExampleChannel') ||
-    rule.condition.static?.commentText?.includes('example comment text') ||
-    rule.actions.some((a) => a.fields?.content?.includes('cal.com/example'))
-  );
-}
+// export function hasExampleParams(rule: {
+//   condition: {
+//     static?: {
+//       videoId?: string | null;
+//       from?: string | null;
+//     } | null;
+//   };
+//   actions: { content?: string | null }[]; // Adjusted to match action table structure
+// }) {
+//   return (
+//     rule.condition.static?.videoId?.includes('') ||
+//     rule.condition.static?.from?.includes('@kuluruvineeth') ||
+//     rule.actions.some((a) => a.content?.includes(''))
+//   );
+// }
 
 const commonPrompts = [
-  "Mark positive feedback comments as 'Positive'",
-  "Mark spam comments as 'Spam' and hide them",
-  "Mark questions about video content as 'Question'",
-  "Mark comments from subscribers as 'Subscriber'",
-  "Mark comments with timestamps as 'Timestamp' and pin them",
+  "Mark positive feedback comments as 'POSITIVE'",
+  "Mark negative or critical comments as 'NEGATIVE'",
+  "Mark neutral, general comments as 'NEUTRAL'",
+  "Mark spam comments as 'SPAM' and hide them",
+  "Mark offensive or inappropriate comments as 'OFFENSIVE'",
+  "Mark comments sharing useful insights or facts as 'INFORMATIVE'",
+  "Mark comments expressing engagement or excitement as 'ENGAGEMENT'",
+  "Mark feedback about improving the content as 'CONSTRUCTIVE_CRITICISM'",
+  "Mark questions about video content as 'QUESTION'",
+  "Mark appreciative comments as 'APPRECIATION'",
+  "Mark collaboration-related comments as 'COLLABORATION_OPPORTUNITY'",
+  "Mark comments expressing support or encouragement as 'SUPPORT'",
+  "Mark humorous or joke comments as 'HUMOROUS'",
+  "Mark educational or learning-based comments as 'EDUCATIONAL'",
+  "Mark personal experiences or stories as 'PERSONAL_STORY'",
+  "If a comment doesn’t fit into any category, mark it as 'OTHER'",
 ];
 
 const common = `${commonPrompts.map((prompt) => `* ${prompt}`).join('.\n')}.`;
