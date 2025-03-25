@@ -6,6 +6,7 @@ import { DesignSystemProvider } from '@repo/design-system';
 import { fonts } from '@repo/design-system/lib/fonts';
 import { Toolbar } from '@repo/feature-flags/components/toolbar';
 import type { Metadata } from 'next';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
@@ -53,7 +54,9 @@ const RootLayout = ({ children }: RootLayoutProperties) => (
       <TRPCProvider>
         <AnalyticsProvider>
           <DesignSystemProvider>
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              <NuqsAdapter>{children}</NuqsAdapter>
+            </QueryProvider>
           </DesignSystemProvider>
           <Toolbar />
         </AnalyticsProvider>
