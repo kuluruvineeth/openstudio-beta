@@ -1,5 +1,6 @@
 import { organizationRouter } from '@/modules/organization/server/procedures';
 import { profileRouter } from '@/modules/profile/server/procedures';
+import { automationRouter } from '@/modules/tube/automation/server/procedures';
 import { commentReactionsRouter } from '@/modules/tube/comment-reactions/server/procedures';
 import { commentsRouter } from '@/modules/tube/comments/server/procedures';
 import { categoriesRouter } from '@/modules/tube/home/categories/server/procedures';
@@ -13,7 +14,6 @@ import { videosRouter } from '@/modules/tube/videos/server/procedures';
 import { userRouter } from '@/modules/user/server/procedures';
 import { youtubeRouter } from '@/modules/youtube/server/procedures';
 import { createTRPCRouter } from '../init';
-
 export const appRouter = createTRPCRouter({
   categories: categoriesRouter,
   studio: studioRouter,
@@ -29,6 +29,7 @@ export const appRouter = createTRPCRouter({
   user: userRouter,
   profile: profileRouter,
   organization: organizationRouter,
+  automation: automationRouter,
 });
 
 export type AppRouter = typeof appRouter;
