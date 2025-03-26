@@ -1,11 +1,19 @@
 'use client';
 
+import {
+  isAIRule,
+  isCategoryRule,
+  isGroupRule,
+  isStaticRule,
+} from '@/lib/utils/condition';
+import { trpc } from '@/trpc/client';
+import { CardContent } from '@repo/design-system/components/ui';
 import { Button } from '@repo/design-system/components/ui/button';
-import { BookOpenCheckIcon, PauseIcon } from 'lucide-react';
+import { Separator } from '@repo/design-system/components/ui/separator';
+import { BookOpenCheckIcon, PauseIcon, PenSquareIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { parseAsBoolean } from 'nuqs';
 import { useRef, useState } from 'react';
-
 export function ProcessRulesContent({ testMode }: { testMode: boolean }) {
   const [searchQuery, setSearchQuery] = useQueryState('search');
   const [showCustomForm, setShowCustomForm] = useQueryState(
@@ -15,6 +23,17 @@ export function ProcessRulesContent({ testMode }: { testMode: boolean }) {
   const isRunningAllRef = useRef(false);
   const [isRunningAll, setIsRunningAll] = useState(false);
   const [currentPageLimit, setCurrentPageLimit] = useState(testMode ? 1 : 10);
+
+  const { data: rules } = trpc.automation.getRules.useQuery();
+
+  const hasAiRules = rules?.some(
+    (rule) =>
+      isAIRule(rule) &&
+      !isStaticRule(rule) &&
+      !isGroupRule(rule) &&
+      !isCategoryRule(rule)
+  );
+
   return (
     <div>
       <div className="flex items-center justify-between gap-2 border-border border-b px-6 pb-4">
@@ -29,7 +48,27 @@ export function ProcessRulesContent({ testMode }: { testMode: boolean }) {
             </Button>
           )}
         </div>
+        <div className="flex items-center gap-2">
+          {hasAiRules && testMode && (
+            <Button
+              variant={'ghost'}
+              onClick={() => setShowCustomForm((show) => !show)}
+              prefixIcon={PenSquareIcon}
+            >
+              Custom
+            </Button>
+          )}
+        </div>
       </div>
+
+      {hasAiRules && showCustomForm && testMode && (
+        <div className="mt-2">
+          <CardContent>
+            <h1>Custom Form</h1>
+          </CardContent>
+          <Separator />
+        </div>
+      )}
     </div>
   );
 }

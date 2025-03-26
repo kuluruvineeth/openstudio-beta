@@ -102,19 +102,19 @@ const AutomationTabsSectionSuspense = () => {
         />
       </TabsToolbar>
 
-      <TabsContent value="prompt" className="px-2 sm:px-6">
+      <TabsContent value="prompt" className="mb-10 px-2 sm:px-6">
         <RulesPrompt />
       </TabsContent>
-      <TabsContent value="rules" className="px-2 sm:px-6">
+      <TabsContent value="rules" className="mb-10 px-2 sm:px-6">
         <Rules />
       </TabsContent>
-      <TabsContent value="test" className="px-2 sm:px-6">
+      <TabsContent value="test" className="mb-10 px-2 sm:px-6">
         <Process />
       </TabsContent>
-      <TabsContent value="history" className="px-2 sm:px-6">
+      <TabsContent value="history" className="mb-10 px-2 sm:px-6">
         History
       </TabsContent>
-      <TabsContent value="pending" className="px-2 sm:px-6">
+      <TabsContent value="pending" className="mb-10 px-2 sm:px-6">
         Pending
       </TabsContent>
     </Tabs>

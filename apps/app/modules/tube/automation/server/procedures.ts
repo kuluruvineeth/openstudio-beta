@@ -1,6 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from '@/trpc/init';
 import { database } from '@repo/backend/database';
-import { rule } from '@repo/backend/schema';
+import { rule, youtubeIntegration } from '@repo/backend/schema';
 import { TRPCError } from '@trpc/server';
 import { asc, eq } from 'drizzle-orm';
 import { z } from 'zod';
@@ -75,4 +75,26 @@ export const automationRouter = createTRPCRouter({
         })
         .where(eq(rule.id, ruleId));
     }),
+  getYoutubeIntegration: protectedProcedure.query(async ({ ctx }) => {
+    const { userId } = ctx;
+
+    if (!userId) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+
+    const youtubeIntegrationData =
+      await database.query.youtubeIntegration.findFirst({
+        where: eq(
+          youtubeIntegration.organizationId,
+          ctx.user.user_metadata.organization_id
+        ),
+      });
+
+    // if no youtube integration, return null
+    if (!youtubeIntegrationData) {
+      return null;
+    }
+
+    return youtubeIntegrationData;
+  }),
 });
