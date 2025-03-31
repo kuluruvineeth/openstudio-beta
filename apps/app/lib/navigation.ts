@@ -2,9 +2,11 @@ import {
   type ActivityIcon,
   ClapperboardIcon,
   CogIcon,
+  FileIcon,
   HomeIcon,
   MessageCircleCodeIcon,
   MessageCircleIcon,
+  MicVocalIcon,
   SparklesIcon,
   UserIcon,
   VideoIcon,
@@ -17,6 +19,7 @@ export type SidebarPage = {
   readonly href: string;
   readonly active: (pathname: string) => boolean;
   readonly items?: Omit<SidebarPage, 'items' | 'icon'>[];
+  readonly badge?: string;
 };
 
 export const home: SidebarPage = {
@@ -38,6 +41,7 @@ export const chat: SidebarPage = {
   label: 'ChatHub',
   href: '/chat',
   active: (pathname) => pathname === '/chat',
+  badge: 'Free',
 };
 
 export const chatv2: SidebarPage = {
@@ -45,6 +49,7 @@ export const chatv2: SidebarPage = {
   label: 'Artifacts',
   href: '/artifacts',
   active: (pathname) => pathname === '/artifacts',
+  badge: 'Pro (WIP)',
 };
 
 export const settings: SidebarPage = {
@@ -59,6 +64,7 @@ export const tube: SidebarPage = {
   label: 'Tube',
   href: '/tube/studio',
   active: (pathname) => pathname === '/tube/studio',
+  badge: 'Pro (WIP)',
 };
 
 export const tubeStudio: SidebarPage = {
@@ -87,4 +93,20 @@ export const smartCategorization: SidebarPage = {
   label: 'Smart Categorization',
   href: '/tube/smart-categorization',
   active: (pathname) => pathname === '/tube/smart-categorization',
+};
+
+export const voice: SidebarPage = {
+  icon: MicVocalIcon,
+  label: 'Voice',
+  href: '/voice',
+  active: (pathname) => pathname === '/voice',
+  badge: 'Pro (WIP)',
+};
+
+export const resume: SidebarPage = {
+  icon: FileIcon,
+  label: 'Resume',
+  href: '/resume',
+  active: (pathname) => pathname === '/resume',
+  badge: 'Free',
 };

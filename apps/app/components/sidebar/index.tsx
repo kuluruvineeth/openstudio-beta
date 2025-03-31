@@ -111,6 +111,8 @@ export const Sidebar = ({ user, organization }: SidebarProps) => {
                 navigation.chat,
                 navigation.chatv2,
                 navigation.tube,
+                navigation.voice,
+                navigation.resume,
               ].map((item) => (
                 <SidebarItem key={item.label} {...item} />
               ))}
