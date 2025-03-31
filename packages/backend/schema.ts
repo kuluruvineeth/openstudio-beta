@@ -43,11 +43,26 @@ export const Profile = pgTable('profile', {
   id: uuid('id')
     .primaryKey()
     .references(() => Users.id, { onDelete: 'cascade' }),
+  // to use in open studio resume
+  firstName: text('first_name'),
+  lastName: text('last_name'),
   email: varchar('email', { length: 256 }),
   rulesPrompt: text('rules_prompt'),
   aiProvider: text('ai_provider'),
   aiModel: text('ai_model'),
   aiApiKey: text('ai_api_key'),
+  phoneNumber: text('phone_number'),
+  location: text('location'),
+  websiteUrl: text('website_url'),
+  linkedinUrl: text('linkedin_url'),
+  githubUrl: text('github_url'),
+  workExperience: jsonb('work_experience').default('[]'),
+  education: jsonb('education').default('[]'),
+  skills: jsonb('skills').default('[]'),
+  projects: jsonb('projects').default('[]'),
+  certifications: jsonb('certifications').default('[]'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
 // Enums
@@ -1085,6 +1100,8 @@ export const userRelations = relations(Users, ({ many, one }) => ({
   }),
   commentCategories: many(commentCategoryTable),
   commenterCategories: many(commenterCategoryTable),
+  jobs: many(jobs),
+  resumes: many(resumes),
 }));
 
 //NOTE (Optional): Relations work only on application level, does not affect database schema or relations
@@ -1359,6 +1376,85 @@ export const ruleRelations = relations(rule, ({ many, one }) => ({
   categoryFilters: many(commentCategoryTable),
   commentCategories: many(ruleCommentCategoryTable),
   commenterCategories: many(ruleCommenterCategoryTable),
+}));
+
+// Jobs table
+export const jobs = pgTable('jobs', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => Users.id, { onDelete: 'cascade' }),
+  positionTitle: text('position_title').notNull(),
+  companyName: text('company_name'),
+  description: text('description'),
+  jobUrl: text('job_url'),
+  location: text('location'),
+  salaryRange: text('salary_range'),
+  keywords: text('keywords').array(),
+  workLocation: text('work_location'),
+  employmentType: text('employment_type'),
+  isActive: boolean('is_active').default(true),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// Resumes table
+export const resumes = pgTable('resumes', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => Users.id, { onDelete: 'cascade' }),
+  jobId: uuid('job_id').references(() => jobs.id, { onDelete: 'cascade' }),
+  isBaseResume: boolean('is_base_resume').default(false),
+  name: text('name').notNull(),
+  firstName: text('first_name'),
+  lastName: text('last_name'),
+  email: text('email'),
+  phoneNumber: text('phone_number'),
+  location: text('location'),
+  websiteUrl: text('website_url'),
+  linkedinUrl: text('linkedin_url'),
+  githubUrl: text('github_url'),
+  professionalSummary: text('professional_summary'),
+  workExperience: jsonb('work_experience').default('[]'),
+  education: jsonb('education').default('[]'),
+  skills: jsonb('skills').default('[]'),
+  projects: jsonb('projects').default('[]'),
+  certifications: jsonb('certifications').default('[]'),
+  sectionOrder: jsonb('section_order').default(
+    '["professional_summary", "work_experience", "skills", "projects", "education", "certifications"]'
+  ),
+  sectionConfigs: jsonb('section_configs').default(
+    '{"skills":{"style":"grouped","visible":true},"projects":{"visible":true,"max_items":3},"education":{"visible":true,"max_items":null},"certifications":{"visible":true},"work_experience":{"visible":true,"max_items":null}}'
+  ),
+  resumeTitle: text('resume_title'),
+  targetRole: text('target_role'),
+  documentSettings: jsonb('document_settings').default(
+    '{"header_name_size": 24, "skills_margin_top": 2, "document_font_size": 10, "projects_margin_top": 2, "skills_item_spacing": 2, "document_line_height": 1.5, "education_margin_top": 2, "skills_margin_bottom": 2, "experience_margin_top": 2, "projects_item_spacing": 4, "education_item_spacing": 4, "projects_margin_bottom": 2, "education_margin_bottom": 2, "experience_item_spacing": 4, "document_margin_vertical": 36, "experience_margin_bottom": 2, "skills_margin_horizontal": 0, "document_margin_horizontal": 36, "header_name_bottom_spacing": 24, "projects_margin_horizontal": 0, "education_margin_horizontal": 0, "experience_margin_horizontal": 0}'
+  ),
+  hasCoverLetter: boolean('has_cover_letter').default(false),
+  coverLetter: jsonb('cover_letter'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const jobRelations = relations(jobs, ({ one, many }) => ({
+  user: one(Users, {
+    fields: [jobs.userId],
+    references: [Users.id],
+  }),
+  resumes: many(resumes),
+}));
+
+export const resumeRelations = relations(resumes, ({ one }) => ({
+  user: one(Users, {
+    fields: [resumes.userId],
+    references: [Users.id],
+  }),
+  job: one(jobs, {
+    fields: [resumes.jobId],
+    references: [jobs.id],
+  }),
 }));
 
 export const schema = {
