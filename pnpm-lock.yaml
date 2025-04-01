@@ -156,7 +156,7 @@ importers:
         version: 0.3.15(@langchain/core@0.3.42(openai@4.87.3(ws@8.18.1)(zod@3.24.2)))
       '@langchain/community':
         specifier: ^0.3.21
-        version: 0.3.35(wqykarydtvmb3bmi332cfb5gjq)
+        version: 0.3.35(47ygvmmhmqmprgu7h7i3ixkmkq)
       '@langchain/core':
         specifier: ^0.3.27
         version: 0.3.42(openai@4.87.3(ws@8.18.1)(zod@3.24.2))
@@ -360,7 +360,7 @@ importers:
         version: 0.4.2(csstype@3.1.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       axios:
         specifier: ^1.7.9
-        version: 1.8.3(debug@4.4.0)
+        version: 1.8.3
       boring-avatars:
         specifier: ^1.11.2
         version: 1.11.2
@@ -410,8 +410,8 @@ importers:
         specifier: ^2.4.6
         version: 2.4.6(react@19.0.0)
       framer-motion:
-        specifier: ^11.15.0
-        version: 11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^12.6.2
+        version: 12.6.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       fuse.js:
         specifier: ^7.0.0
         version: 7.1.0
@@ -872,8 +872,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       framer-motion:
-        specifier: ^11.15.0
-        version: 11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^12.6.2
+        version: 12.6.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       fumadocs-core:
         specifier: ^14.6.8
         version: 14.7.7(@types/react@19.0.2)(next@15.1.3(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1292,8 +1292,8 @@ importers:
         specifier: ^8.5.1
         version: 8.5.2(react@19.0.0)
       framer-motion:
-        specifier: ^11.15.0
-        version: 11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^12.6.2
+        version: 12.6.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       geist:
         specifier: ^1.3.1
         version: 1.3.1(next@15.1.3(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
@@ -2152,6 +2152,11 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
+  '@babel/parser@7.27.0':
+    resolution: {integrity: sha512-iaepho73/2Pz7w2eMS0Q5f83+0RKI7i4xmiYeBmDzfRVbQtTOG7Ts0S4HzJVsTMGI9keU8rNfuZr8DKfSt7Yyg==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
   '@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.25.9':
     resolution: {integrity: sha512-ZkRyVkThtxQ/J6nv3JFYv1RYY+JT5BvU0y3k5bWrmuG4woXypRa4PXmm9RhOwodRkYFWqC0C0cqcJ4OqR7kW+g==}
     engines: {node: '>=6.9.0'}
@@ -2619,6 +2624,10 @@ packages:
     resolution: {integrity: sha512-emqcG3vHrpxUKTrxcblR36dcrcoRDvKmnL/dCL6ZsHaShW80qxCAcNhzQZrpeM765VzEos+xOi4s+r4IXzTwdQ==}
     engines: {node: '>=6.9.0'}
 
+  '@babel/types@7.27.0':
+    resolution: {integrity: sha512-H45s8fVLYjbhFH62dIJ3WtmJ6RSPt/3DRO0ZcT2SUiYiQyz3BLVb9ADEnLl91m74aQPS3AzzeajZHYOalWe3bg==}
+    engines: {node: '>=6.9.0'}
+
   '@basehub/genql@9.0.0-canary.6':
     resolution: {integrity: sha512-o2RpYZ3U4z1FU8Dl3DWBxSs2bc2Z96w/pq7qnKEbHckZUm0wnygLeDRnvt7h0aJLvRZucoCzRXE/zblIoOqiGQ==}
 
@@ -2678,8 +2687,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@browserbasehq/sdk@2.3.0':
-    resolution: {integrity: sha512-H2nu46C6ydWgHY+7yqaP8qpfRJMJFVGxVIgsuHe1cx9HkfJHqzkuIqaK/k8mU4ZeavQgV5ZrJa0UX6MDGYiT4w==}
+  '@browserbasehq/sdk@2.5.0':
+    resolution: {integrity: sha512-bcnbYZvm5Ht1nrHUfWDK4crspiTy1ESJYMApsMiOTUnlKOan0ocRD6m7hZH34iSC2c2XWsoryR80cwsYgCBWzQ==}
 
   '@browserbasehq/stagehand@1.14.0':
     resolution: {integrity: sha512-Hi/EzgMFWz+FKyepxHTrqfTPjpsuBS4zRy3e9sbMpBgLPv+9c0R+YZEvS7Bw4mTS66QtvvURRT6zgDGFotthVQ==}
@@ -7510,6 +7519,9 @@ packages:
   '@types/node@18.19.80':
     resolution: {integrity: sha512-kEWeMwMeIvxYkeg1gTc01awpwLbfMRZXdIhwRcakd/KlK53jmRC26LqcbIt7fnAQTu5GzlnWmzA3H6+l1u6xxQ==}
 
+  '@types/node@18.19.84':
+    resolution: {integrity: sha512-ACYy2HGcZPHxEeWTqowTF7dhXN+JU1o7Gr4b41klnn6pj2LD6rsiGqSZojMdk1Jh2ys3m76ap+ae1vvE4+5+vg==}
+
   '@types/node@20.17.24':
     resolution: {integrity: sha512-d7fGCyB96w9BnWQrOsJtpyiSaBcAYYr75bnK6ZRjDbql2cGLj/3GsL5OYmLPNq76l7Gf2q4Rv9J2o6h5CrD9sA==}
 
@@ -8089,6 +8101,9 @@ packages:
 
   axios@1.8.3:
     resolution: {integrity: sha512-iP4DebzoNlP/YN2dpwCgb8zoCmhtkajzS48JvwmkSkXvPI3DHc7m+XYL5tGnSlJtR6nImXZmdCuN5aP8dh1d8A==}
+
+  axios@1.8.4:
+    resolution: {integrity: sha512-eBSYY4Y68NNlHbHBMdeDmKNtDgXWhQsJcGqzO3iLUM0GraQFSS9cVgPX5I9b3lbdFKyYoAEGAZF1DwhTaljNAw==}
 
   babel-loader@9.2.1:
     resolution: {integrity: sha512-fqe8naHt46e0yIdkjUZYqddSXfej3AHajX+CSO5X7oy0EmPc6o5Xh+RClNoHjnieWz9AW4kZxW9yyFMhVB1QLA==}
@@ -9739,22 +9754,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.18.2:
-    resolution: {integrity: sha512-5F5Och7wrvtLVElIpclDT0CBzMVg3dL22B64aZwHtsIY8RB4mXICLrkajK4G9R+ieSAGcgrLeae2SeUTg2pr6w==}
-    peerDependencies:
-      '@emotion/is-prop-valid': '*'
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-
-  framer-motion@12.5.0:
-    resolution: {integrity: sha512-buPlioFbH9/W7rDzYh1C09AuZHAk2D1xTA1BlounJ2Rb9aRg84OXexP0GLd+R83v0khURdMX7b5MKnGTaSg5iA==}
+  framer-motion@12.6.2:
+    resolution: {integrity: sha512-7LgPRlPs5aG8UxeZiMCMZz8firC53+2+9TnWV22tuSi38D3IFRxHRUqOREKckAkt6ztX+Dn6weLcatQilJTMcg==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -11393,14 +11394,8 @@ packages:
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
-  motion-dom@11.18.1:
-    resolution: {integrity: sha512-g76KvA001z+atjfxczdRtw/RXOM3OMSdd1f4DL77qCTF/+avrRJiawSG4yDibEQ215sr9kpinSlX2pCTJ9zbhw==}
-
-  motion-dom@12.5.0:
-    resolution: {integrity: sha512-uH2PETDh7m+Hjd1UQQ56yHqwn83SAwNjimNPE/kC+Kds0t4Yh7+29rfo5wezVFpPOv57U4IuWved5d1x0kNhbQ==}
-
-  motion-utils@11.18.1:
-    resolution: {integrity: sha512-49Kt+HKjtbJKLtgO/LKj9Ld+6vw9BjH5d9sc40R/kVyH8GLAXgT42M2NnuPcJNuA3s9ZfZBUcwIgpmZWGEE+hA==}
+  motion-dom@12.6.1:
+    resolution: {integrity: sha512-8XVsriTUEVOepoIDgE/LDGdg7qaKXWdt+wQA/8z0p8YzJDLYL8gbimZ3YkCLlj7bB2i/4UBD/g+VO7y9ZY0zHQ==}
 
   motion-utils@12.5.0:
     resolution: {integrity: sha512-+hFFzvimn0sBMP9iPxBa9OtRX35ZQ3py0UHnb8U29VD+d8lQ8zH3dTygJWqK7av2v6yhg7scj9iZuvTS0f4+SA==}
@@ -14505,6 +14500,11 @@ packages:
     peerDependencies:
       zod: ^3.24.1
 
+  zod-to-json-schema@3.24.5:
+    resolution: {integrity: sha512-/AuWwMP+YqiPbsJx5D6TfgRTc4kTLjsh5SOcd4bLsfUg2RcEXrFMJl1DGgdHy2aCfsIA/cr/1JM0xcB2GZji8g==}
+    peerDependencies:
+      zod: ^3.24.1
+
   zod-validation-error@1.5.0:
     resolution: {integrity: sha512-/7eFkAI4qV0tcxMBB/3+d2c1P6jzzZYdYSlBuAklzMuCrJu5bzJfHS0yVAS87dRHVlhftd6RFJDIvv03JgkSbw==}
     engines: {node: '>=16.0.0'}
@@ -14654,7 +14654,7 @@ snapshots:
 
   '@anthropic-ai/sdk@0.27.3':
     dependencies:
-      '@types/node': 18.19.80
+      '@types/node': 18.19.84
       '@types/node-fetch': 2.6.12
       abort-controller: 3.0.0
       agentkeepalive: 4.6.0
@@ -15011,6 +15011,10 @@ snapshots:
   '@babel/parser@7.26.10':
     dependencies:
       '@babel/types': 7.26.10
+
+  '@babel/parser@7.27.0':
+    dependencies:
+      '@babel/types': 7.27.0
 
   '@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.25.9(@babel/core@7.26.10)':
     dependencies:
@@ -15605,6 +15609,11 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
+  '@babel/types@7.27.0':
+    dependencies:
+      '@babel/helper-string-parser': 7.25.9
+      '@babel/helper-validator-identifier': 7.25.9
+
   '@basehub/genql@9.0.0-canary.6(enquirer@2.4.1)':
     dependencies:
       '@graphql-tools/graphql-file-loader': 7.5.17(graphql@16.10.0)
@@ -15661,9 +15670,9 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@browserbasehq/sdk@2.3.0':
+  '@browserbasehq/sdk@2.5.0':
     dependencies:
-      '@types/node': 18.19.80
+      '@types/node': 18.19.84
       '@types/node-fetch': 2.6.12
       abort-controller: 3.0.0
       agentkeepalive: 4.6.0
@@ -15676,14 +15685,14 @@ snapshots:
   '@browserbasehq/stagehand@1.14.0(@playwright/test@1.51.0)(deepmerge@4.3.1)(dotenv@16.4.7)(openai@4.87.3(ws@8.18.1)(zod@3.24.2))(zod@3.24.2)':
     dependencies:
       '@anthropic-ai/sdk': 0.27.3
-      '@browserbasehq/sdk': 2.3.0
+      '@browserbasehq/sdk': 2.5.0
       '@playwright/test': 1.51.0
       deepmerge: 4.3.1
       dotenv: 16.4.7
       openai: 4.87.3(ws@8.18.1)(zod@3.24.2)
       ws: 8.18.1
       zod: 3.24.2
-      zod-to-json-schema: 3.24.3(zod@3.24.2)
+      zod-to-json-schema: 3.24.5(zod@3.24.2)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -16559,7 +16568,7 @@ snapshots:
   '@ibm-cloud/watsonx-ai@1.5.1(@langchain/core@0.3.42(openai@4.87.3(ws@8.18.1)(zod@3.24.2)))':
     dependencies:
       '@langchain/textsplitters': 0.1.0(@langchain/core@0.3.42(openai@4.87.3(ws@8.18.1)(zod@3.24.2)))
-      '@types/node': 18.19.80
+      '@types/node': 18.19.84
       extend: 3.0.2
       ibm-cloud-sdk-core: 5.3.2
     transitivePeerDependencies:
@@ -16691,7 +16700,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@langchain/community@0.3.35(wqykarydtvmb3bmi332cfb5gjq)':
+  '@langchain/community@0.3.35(47ygvmmhmqmprgu7h7i3ixkmkq)':
     dependencies:
       '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.51.0)(deepmerge@4.3.1)(dotenv@16.4.7)(openai@4.87.3(ws@8.18.1)(zod@3.24.2))(zod@3.24.2)
       '@ibm-cloud/watsonx-ai': 1.5.1(@langchain/core@0.3.42(openai@4.87.3(ws@8.18.1)(zod@3.24.2)))
@@ -16709,7 +16718,7 @@ snapshots:
       zod: 3.24.2
       zod-to-json-schema: 3.24.3(zod@3.24.2)
     optionalDependencies:
-      '@browserbasehq/sdk': 2.3.0
+      '@browserbasehq/sdk': 2.5.0
       '@mendable/firecrawl-js': 1.19.1(ws@8.18.1)
       '@mozilla/readability': 0.5.0
       '@supabase/supabase-js': 2.49.1
@@ -16944,7 +16953,7 @@ snapshots:
 
   '@mendable/firecrawl-js@1.19.1(ws@8.18.1)':
     dependencies:
-      axios: 1.8.3(debug@4.4.0)
+      axios: 1.8.3
       isows: 1.0.6(ws@8.18.1)
       typescript-event-target: 1.1.1
       zod: 3.24.2
@@ -20390,6 +20399,10 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
+  '@types/node@18.19.84':
+    dependencies:
+      undici-types: 5.26.5
+
   '@types/node@20.17.24':
     dependencies:
       undici-types: 6.19.8
@@ -20648,7 +20661,7 @@ snapshots:
 
   '@vue/compiler-sfc@2.7.16':
     dependencies:
-      '@babel/parser': 7.26.10
+      '@babel/parser': 7.27.0
       postcss: 8.5.3
       source-map: 0.6.1
     optionalDependencies:
@@ -21006,7 +21019,15 @@ snapshots:
 
   await-to-js@3.0.0: {}
 
-  axios@1.8.3(debug@4.4.0):
+  axios@1.8.3:
+    dependencies:
+      follow-redirects: 1.15.9(debug@4.4.0)
+      form-data: 4.0.2
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.8.4(debug@4.4.0):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.0)
       form-data: 4.0.2
@@ -22906,18 +22927,9 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  framer-motion@12.6.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      motion-dom: 11.18.1
-      motion-utils: 11.18.1
-      tslib: 2.8.1
-    optionalDependencies:
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-
-  framer-motion@12.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      motion-dom: 12.5.0
+      motion-dom: 12.6.1
       motion-utils: 12.5.0
       tslib: 2.8.1
     optionalDependencies:
@@ -23528,9 +23540,9 @@ snapshots:
   ibm-cloud-sdk-core@5.3.2:
     dependencies:
       '@types/debug': 4.1.12
-      '@types/node': 18.19.80
+      '@types/node': 18.19.84
       '@types/tough-cookie': 4.0.5
-      axios: 1.8.3(debug@4.4.0)
+      axios: 1.8.4(debug@4.4.0)
       camelcase: 6.3.0
       debug: 4.4.0
       dotenv: 16.4.7
@@ -23540,7 +23552,7 @@ snapshots:
       isstream: 0.1.2
       jsonwebtoken: 9.0.2
       mime-types: 2.1.35
-      retry-axios: 2.6.0(axios@1.8.3)
+      retry-axios: 2.6.0(axios@1.8.4(debug@4.4.0))
       tough-cookie: 4.1.4
     transitivePeerDependencies:
       - supports-color
@@ -24155,7 +24167,7 @@ snapshots:
       '@langchain/groq': 0.1.3(@langchain/core@0.3.42(openai@4.87.3(ws@8.18.1)(zod@3.24.2)))(ws@8.18.1)
       '@langchain/ollama': 0.1.6(@langchain/core@0.3.42(openai@4.87.3(ws@8.18.1)(zod@3.24.2)))
       '@langchain/xai': 0.0.1(@langchain/core@0.3.42(openai@4.87.3(ws@8.18.1)(zod@3.24.2)))(ws@8.18.1)
-      axios: 1.8.3(debug@4.4.0)
+      axios: 1.8.3
       cheerio: 1.0.0
       handlebars: 4.7.8
     transitivePeerDependencies:
@@ -24992,21 +25004,15 @@ snapshots:
 
   moment@2.30.1: {}
 
-  motion-dom@11.18.1:
-    dependencies:
-      motion-utils: 11.18.1
-
-  motion-dom@12.5.0:
+  motion-dom@12.6.1:
     dependencies:
       motion-utils: 12.5.0
-
-  motion-utils@11.18.1: {}
 
   motion-utils@12.5.0: {}
 
   motion@12.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      framer-motion: 12.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      framer-motion: 12.6.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       tslib: 2.8.1
     optionalDependencies:
       react: 19.0.0
@@ -25919,7 +25925,7 @@ snapshots:
 
   posthog-node@4.10.1:
     dependencies:
-      axios: 1.8.3(debug@4.4.0)
+      axios: 1.8.3
     transitivePeerDependencies:
       - debug
 
@@ -26831,9 +26837,9 @@ snapshots:
 
   restructure@3.0.2: {}
 
-  retry-axios@2.6.0(axios@1.8.3):
+  retry-axios@2.6.0(axios@1.8.4(debug@4.4.0)):
     dependencies:
-      axios: 1.8.3(debug@4.4.0)
+      axios: 1.8.4(debug@4.4.0)
 
   retry@0.13.1: {}
 
@@ -28056,7 +28062,7 @@ snapshots:
   typesense@1.8.2(@babel/runtime@7.26.10):
     dependencies:
       '@babel/runtime': 7.26.10
-      axios: 1.8.3(debug@4.4.0)
+      axios: 1.8.3
       loglevel: 1.9.2
     transitivePeerDependencies:
       - debug
@@ -28842,6 +28848,10 @@ snapshots:
       zod: 3.24.2
 
   zod-to-json-schema@3.24.3(zod@3.24.2):
+    dependencies:
+      zod: 3.24.2
+
+  zod-to-json-schema@3.24.5(zod@3.24.2):
     dependencies:
       zod: 3.24.2
 
