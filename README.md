@@ -2,7 +2,7 @@
 
 Open Studio is an open-source AI ecosystem. ChatHub drives research and leverage verticalized agents like OpenStudio Tube to get the work done for YouTube. More niche AI inbound!
 
-## 1. OpenStudio ChatHub
+## 1. Open Studio ChatHub
 
 <p align="center">
   <img width="160" alt="OpenStudio ChatHub logo" src=".github/screenshots/oschathubhero.png">
@@ -33,7 +33,7 @@ Open Studio is an open-source AI ecosystem. ChatHub drives research and leverage
 [![Open Studio Chathub demo](.github/screenshots/oschathubthumbnail.png)](https://youtu.be/KCd_bdnJ1SE?si=xJHksV_YNQrA-Wq2)
 
 
-## 2. OpenStudio Tube - Work In Progress
+## 2. Open Studio Tube - Work In Progress
 
 <p align="center">
   <img width="350" alt="OpenStudio Tube logo" src=".github/screenshots/ostubehero.jpeg">
@@ -61,6 +61,47 @@ Drowning in comments? Automate replies, moderation, and approvals—saving you *
 ## Demo Video
 
 [![Open Studio demo](.github/screenshots/ostubethumbnail.webp)](https://youtu.be/Z_2XLXBjqzI?si=yVJXvxlf7YHst9oT)
+
+## 3. **Open Studio Artifacts – AI Marketplace (Work In Progress)**  
+
+<p align="center">Create, sell, and use AI tools with ease.</p>  
+
+🚀 **AI Tools for Everyone**  
+
+A simple platform where AI creators sell their work, and users find the right AI solutions.  
+
+### ⚡ **Core Features:**  
+🛠️ **No-Code AI Creation** – Build and share AI tools.  
+💰 **Monetization** – Earn from your AI expertise.  
+🔍 **AI Marketplace** – Find AI solutions for any need.  
+📈 **Fair Revenue Sharing** – Transparent and creator-friendly.  
+⚡ **Collaboration** – Work with others and improve AI tools.  
+
+🔥 **First Focus: Helping AI Creators**  
+Create, share, and get paid for AI tools—built for those who make things happen.  
+
+💡 **The Goal:** A straightforward marketplace connecting AI creators and users.
+
+## 4. **Open Studio Resume – AI-Powered Resume Builder**  
+
+<p align="center">Craft, customize, and optimize resumes effortlessly.</p>  
+
+🚀 **Smart Resume Creation Made Simple**  
+
+A streamlined platform that helps job seekers build, refine, and tailor resumes with AI assistance.  
+
+### ⚡ **Core Features:**  
+📝 **Resume Templates** – Start with structured, professional layouts.  
+🤖 **AI Content Suggestions** – Improve sections with smart recommendations.  
+🎯 **Job-Specific Customization** – Tailor resumes for each application.  
+📑 **Cover Letter Generation** – Auto-create matching cover letters.  
+📄 **PDF Export & Sharing** – Download or share resumes easily.  
+📊 **Resume Score & Feedback** – Optimize with AI-driven insights.  
+
+🔥 **First Focus: AI-Assisted Resume Writing**  
+Write better resumes with AI-powered suggestions and formatting assistance.  
+
+💡 **The Goal:** A simple, effective tool to help anyone create standout resumes.
 
 ## Built with
 
