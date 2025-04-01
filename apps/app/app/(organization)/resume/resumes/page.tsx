@@ -6,9 +6,17 @@ import type {
 import { ResumeSortControls } from '@/app/(organization)/resume/components/resume/management/resume-sort-controls';
 import { Skeleton } from '@repo/design-system/components/ui/skeleton';
 import { cn } from '@repo/design-system/lib/utils';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { MiniResumePreview } from '../components/resume/shared/mini-resume-preview';
+
+export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Open Studio | Resumes',
+  description: 'Open Studio | Resumes',
+};
 
 const RESUMES_PER_PAGE = 12;
 

@@ -4,6 +4,8 @@ import type { Resume } from '@/types';
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 // Helper function to normalize resume data
 function normalizeResumeData(resume: Resume): Resume {
   return {

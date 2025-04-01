@@ -8,6 +8,14 @@ import { ResumesSection } from '@/app/(organization)/resume/components/resume/re
 import { WelcomeDialog } from '@/app/(organization)/resume/components/welcome-dialog';
 import { getGreeting } from '@/lib/utils';
 import type { Profile, Resume } from '@/types';
+import type { Metadata } from 'next';
+
+export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Open Studio | Resume',
+  description: 'Open Studio | Resume',
+};
 
 export default async function ResumePage({
   searchParams,
