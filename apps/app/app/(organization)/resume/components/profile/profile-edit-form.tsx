@@ -286,6 +286,7 @@ export function ProfileEditForm({
                       variant="outline"
                       className="group relative h-9 border-rose-500/20 bg-white/50 px-4 text-rose-600 shadow-sm transition-all duration-500 hover:border-rose-500/30 hover:bg-white/60 hover:shadow-md"
                       disabled={isResetting}
+                      onMouseDown={(e) => e.stopPropagation()}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-rose-500/0 via-rose-500/5 to-rose-500/0 opacity-0 transition-opacity duration-1000 group-hover:opacity-100" />
                       {isResetting ? (
