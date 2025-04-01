@@ -110,7 +110,7 @@
     "feed": "^4.2.2",
     "flags": "^3.1.1",
     "formik": "^2.4.6",
-    "framer-motion": "^11.15.0",
+    "framer-motion": "^12.6.2",
     "fuse.js": "^7.0.0",
     "highlight.js": "^11.11.1",
     "html2canvas": "^1.4.1",
