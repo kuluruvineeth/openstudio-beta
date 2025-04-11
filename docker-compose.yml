@@ -1,0 +1,44 @@
+# For OpenStudio Voice APIs
+
+version: "3.8"
+
+services:
+  openstudio/voice-api:
+    image: 654654208427.dkr.ecr.us-east-1.amazonaws.com/openstudio/voice-api:latest
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  
+  openstudio/seed-vc-api:
+    image: 654654208427.dkr.ecr.us-east-1.amazonaws.com/openstudio/seed-vc-api
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  openstudio/make-an-audio-api:
+    image: 654654208427.dkr.ecr.us-east-1.amazonaws.com/openstudio/make-an-audio-api:latest
+    ports:
+      - "8002:8000"
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

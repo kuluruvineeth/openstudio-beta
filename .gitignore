@@ -50,3 +50,15 @@ yarn-error.log*
 .basehub
 
 .trigger
+
+# Ignore .venv directories anywhere in the project
+**/.venv/
+
+# Also ignore root level .venv
+/.venv/
+
+# For Now Ignore voice packages
+packages/make-an-audio/
+packages/seed-vc/
+packages/voice/
+packages/voice-finetune/
