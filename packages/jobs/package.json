@@ -22,7 +22,7 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@trigger.dev/build": "^3.3.16",
-    "@types/node": "^22.12.0",
+    "@types/node": "^22.13.14",
     "trigger.dev": "^3.3.16",
     "typescript": "^5.7.2"
   }
