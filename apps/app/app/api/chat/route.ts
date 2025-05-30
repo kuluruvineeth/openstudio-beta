@@ -22,7 +22,7 @@ import {
 import { currentUser } from '@repo/backend/auth/utils';
 import type { TLLMRunConfig } from '@repo/backend/types';
 
-export const maxDuration = 90;
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   const {
